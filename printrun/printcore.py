@@ -109,6 +109,8 @@ class printcore():
         self.z_feedrate = None
         self.pronterface = None
 
+        self.lastreadtemp = 0.0 #ADDED BY JOSEPH
+
     def logError(self, error):
         if self.errorcb:
             try: self.errorcb(error)
@@ -297,6 +299,14 @@ class printcore():
                 continue
             if line.startswith(tuple(self.greetings)) or line.startswith('ok'):
                 self.clear = True
+
+            #JOSEPH CODE
+            if line.startswith('ok') and "T:" in line:
+                templine = line.split()
+                exttemp = templine[1][2:].strip()
+                #self.logError("EXTTEMP :" + exttemp)
+                self.lastreadtemp = float(exttemp)
+
             if line.startswith('ok') and "T:" in line and self.tempcb:
                 #callback for temp, status, whatever
                 try: self.tempcb(line)
