@@ -85,9 +85,7 @@ funcdict = {
 if __name__ == "__main__":
 
     interp = pronsole()
-    '''interp.parse_cmdline(sys.argv[1:])
-    try:
-        interp.cmdloop()'''
+    #interp.parse_cmdline(sys.argv[1:])
 
     # SYNTAX:
     # connect <port> <baud>
@@ -107,7 +105,8 @@ if __name__ == "__main__":
         commandfile = open("commands.txt", "rU")
 
         # Read commands from file
-        while (line = commandfile.readline().strip().lower()):
+        line = commandfile.readline().strip().lower()
+        while (line):
             cmdlist = line.split()
             if len(line) < 1:
                 break
@@ -115,6 +114,8 @@ if __name__ == "__main__":
             line = line[len(cmdlist[0])+1:]
 
             funcdict[cmdlist[0]](line)
+            line = commandfile.readline().strip().lower()
+        interp.cmdloop()
 
     except SystemExit:
         interp.p.disconnect()

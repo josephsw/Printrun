@@ -1,0 +1,5 @@
+connect COM6 230400
+sleep 5
+home xyz
+sleep 5
+move x 20
