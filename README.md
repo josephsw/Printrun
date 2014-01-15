@@ -1,3 +1,53 @@
+# Scripted Pronsole
+
+Forked from Printrun by kliment.
+
+Added the ability to take a list of Pronsole commands from a text file. This allows Pronsole to run in the background without needing any external user interactions.
+
+Created for use with the Meta 3D Sculpting application.
+
+## Instructions
+
+  1. Modify 'commands.txt' in the root with the Pronsole commands in the sequence that you want them to run.
+  2. Build Pronsole using py2exe: 'python setup2exe.py py2exe' (see py2exe section below for further info)
+  3. Copy 'commands.txt' into the dist folder and run /dist/pronsole.exe to execute Pronsole
+
+## Syntax for commands.txt
+
+  * connect <port> <baud> - connects to the 3D printer
+  * load <file> - loads a GCode file
+  * print - initiates printing of the loaded GCode file
+  * settemp <temp/abs/off/pla> - sets the temperature of the extruder
+  * home <x/y/z> - moves the extruder head to the home position on the specified axis/axes
+  * move <x/y/z> <val> - moves along the specified axis for <val>mm
+  * extrude <amount> <speed> - extrudes the specified amount (optionally, at the specified speed)
+  * monitor <secs> - output the progress of the print job (every <secs> seconds)
+
+  * sleep <secs> - calls Time.sleep(<secs>) in Python to make the program wait before sending the next command
+  * settempwait <temp/abs/off/pla> - sets the temperature of the extruder, but waits for the temperature to exceed the specified value before continuing to the next command
+
+## py2exe Notes
+
+py2exe can be downloaded here: http://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/
+
+The Printrun source has a number of dependencies:
+
+  * Python 2.7 http://www.python.org/download/releases/2.7.6/
+  * PySerial http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyserial
+  * PyReadLine https://pypi.python.org/pypi/pyreadline/2.0
+  * WxPython http://wxpython.org/download.php#stable
+  * Pyglet http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyglet
+  * NumPy http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy
+  * PyCairo http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
+
+You will also need to add Python to your PATH evironment variable if you are using Windows.
+
+py2exe can be used by running the 'python setup2exe.py py2exe' command. This will create a /dist/ folder containing the pronsole.exe binary file.
+
+You may also need to get the msvcm90.dll, msvcp90.dll and msvcr90.dll. More instructions are available here: http://www.py2exe.org/index.cgi/Tutorial
+
+# General Printrun Notes
+
 Printrun consists of printcore, pronsole and pronterface, and a small collection of helpful scripts.
 
   * printcore.py is a library that makes writing reprap hosts easy
