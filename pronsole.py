@@ -14,40 +14,59 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Modified by Joseph Wang (josephsw) for Meta 3D Sculpting.
+# http://github.com/josephsw/Scripted-Pronsole
 
 import sys
 import traceback
 from printrun.pronsole import pronsole
+import time
 
 def do_connect(l):
-    return
+    interp.log(_("[PS] Connecting to printer at %s" % l))
+    interp.do_connect(l)
 
 def do_load(l):
-    return
+    interp.log(_("[PS] Loading GCode file at %s" % l))
+    interp.do_load(l)
 
 def do_print(l):
-    return
+    interp.log(_("[PS] *** Starting print ***"))
+    interp.do_print(l)
 
 def do_settemp(l):
-    return
+    interp.log(_("[PS] Setting temperature at %s" % l))
+    interp.do_settemp(l)
 
 def do_home(l):
-    return
+    interp.log(_("[PS] Moving home on %s" % l))
+    interp.do_home(l)
 
 def do_move(l):
-    return
+    interp.log(_("[PS] Moving to %s" % l))
+    interp.do_move(l)
 
 def do_extrude(l):
-    return
+    interp.log(_("[PS] Extruding (mm, speed): %s" % l))
+    interp.do_extrude(l)
 
 def do_monitor(l):
-    return
+    interp.log(_("[PS] Monitoring print every %s seconds" % l))
+    interp.do_monitor(l)
 
 def do_sleep(l):
-    return
+    interp.log(_("[PS] Waiting for %s seconds" % l))
+    time.sleep(int(l))
 
 def do_settempwait(l):
-    return
+    interp.log(_("[PS] Setting temperature at %s, waiting until temperature reached" % l))
+    interp.do_settemp(l)
+    while(interp.p.lastreadtemp < int(l) and interp.p.online):
+        #print "TEMP IS: " + str(interp.p.lastreadtemp)
+        interp.log(_("[PS] Current temp: " + str(interp.p.lastreadtemp)))
+        interp.do_gettemp("")
+        time.sleep(5)
 
 # Convert command.txt strings into function calls
 funcdict = {
@@ -84,7 +103,6 @@ if __name__ == "__main__":
     # sleep <secs>
     # settempwait <temp/abs/off/pla>
 
-
     try:
         commandfile = open("commands.txt", "rU")
 
@@ -97,7 +115,7 @@ if __name__ == "__main__":
             line = line[len(cmdlist[0])+1:]
 
             funcdict[cmdlist[0]](line)
-            
+
     except SystemExit:
         interp.p.disconnect()
     except:

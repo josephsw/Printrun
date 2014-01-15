@@ -14,6 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Modified by Joseph Wang (josephsw) for Meta 3D Sculpting.
+# http://github.com/josephsw/Scripted-Pronsole
 
 __version__ = "2013.10.19"
 
