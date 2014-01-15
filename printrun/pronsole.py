@@ -36,6 +36,8 @@ from printrun import gcoder
 
 from functools import wraps
 
+logFile = open("pronsolelog.txt", "w") # Add output to file ADDED BY JOSEPH
+
 if os.name == "nt":
     try:
         import _winreg
@@ -476,10 +478,14 @@ class pronsole(cmd.Cmd):
 
     def log(self, *msg):
         print u"".join(unicode(i) for i in msg)
+        logFile.write(u"".join(unicode(i) for i in msg) + "\n") #ADDED BY JOSEPH
+        logFile.flush()
 
     def logError(self, *msg):
         msg = u"".join(unicode(i) for i in msg)
         logging.error(msg)
+        logFile.write(u"".join(unicode(i) for i in msg) + "\n") #ADDED BY JOSEPH
+        logFile.flush()
         if not self.settings.error_command:
             return
         run_command(self.settings.error_command,
