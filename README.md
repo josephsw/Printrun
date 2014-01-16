@@ -14,17 +14,17 @@ Created for use with the Meta 3D Sculpting application.
 
 ## Syntax for commands.txt
 
-  * connect <port> <baud> - connects to the 3D printer
-  * load <file> - loads a GCode file
+  * connect {port} {baud} - connects to the 3D printer
+  * load {file} - loads a GCode file
   * print - initiates printing of the loaded GCode file
-  * settemp <temp/abs/off/pla> - sets the temperature of the extruder
-  * home <x/y/z> - moves the extruder head to the home position on the specified axis/axes
-  * move <x/y/z> <val> - moves along the specified axis for <val>mm
-  * extrude <amount> <speed> - extrudes the specified amount (optionally, at the specified speed)
-  * monitor <secs> - output the progress of the print job (every <secs> seconds)
+  * settemp {temp/abs/off/pla} - sets the temperature of the extruder
+  * home {x/y/z} - moves the extruder head to the home position on the specified axis/axes
+  * move {x/y/z} {val} - moves along the specified axis for {val}mm
+  * extrude {amount} {speed} - extrudes the specified amount (optionally, at the specified speed)
+  * monitor {secs} - output the progress of the print job (every {secs} seconds)
 
-  * sleep <secs> - calls Time.sleep(<secs>) in Python to make the program wait before sending the next command
-  * settempwait <temp/abs/off/pla> - sets the temperature of the extruder, but waits for the temperature to exceed the specified value before continuing to the next command
+  * sleep {secs} - calls Time.sleep({secs}) in Python to make the program wait before sending the next command
+  * settempwait {temp/abs/off/pla} - sets the temperature of the extruder, but waits for the temperature to exceed the specified value before continuing to the next command
 
 ## py2exe Notes
 
